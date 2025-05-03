@@ -8,32 +8,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/like")
+@RequestMapping("like")
 public class LikeController {
-
 	@Autowired
 	private LikeService service;
 
-	@GetMapping("/{no}")
-	public Like getLike(@PathVariable int no) {
+	@GetMapping("{no}")
+	public Like getLike(@PathVariable(name="no") int no) {
 		return service.getLike(no);
 	}
 
 	@PostMapping
-	public void addLike(int articleNo) {
+	public void addLike(@RequestParam(name="articleNo") int articleNo) {
 		Like like = new Like();
 		like.setNo(articleNo);
 		like.setUsername("John Doe");
 		service.addLike(like);
 	}
 
-	@DeleteMapping("/{no}")
-	public void removeLike(@PathVariable int no) {
+	@DeleteMapping("{no}")
+	public void removeLike(@PathVariable(name="no") int no) {
 		service.removeLike(no);
 	} 
-
-
 }

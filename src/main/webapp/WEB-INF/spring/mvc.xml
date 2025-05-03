@@ -28,9 +28,11 @@
 	        <value>.jsp</value>
 	    </property>
 	</bean>
-
+<!--
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="1048576" />
 	</bean>
+-->	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
     
 </beans>

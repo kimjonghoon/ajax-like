@@ -89,7 +89,7 @@
 <script src="/resources/js/jquery-3.2.1.min.js"></script>
 <script>
 function displayComments() {
-	var url = '/comments/';
+	var url = '/comments';
 	$.getJSON(url, function (data) {
 		$('#all-comments').empty();
 		$.each(data, function (i, item) {
@@ -369,8 +369,7 @@ $(document).ready(function () {
 
 		<div id="all-files"></div>
 
-		<sf:form id="fileForm" action="/upload" method="post"
-			enctype="multipart/form-data">
+		<sf:form id="fileForm" action="/upload" method="post" enctype="multipart/form-data">
 			<div>
 				<input type="file" name="attach" /><input type="submit" value="Submit" />
 			</div>

@@ -1,6 +1,12 @@
 package net.java_school.controller;
 
 import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import java.io.IOException;
 
 import java.util.Iterator;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -20,20 +27,21 @@ import net.java_school.board.AttachFile;
 import net.java_school.commons.WebContants;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("files")
 public class FileController {
 
 	@PostMapping
-	public void upload(MultipartHttpServletRequest req) throws IOException {
-		Iterator<String> iterator = req.getFileNames();
-
-		while (iterator.hasNext()) {
-			MultipartFile file = req.getFile((String) iterator.next());
-
-			if (file.getSize() > 0) {
-				String filename = file.getOriginalFilename();
-				file.transferTo(new File(WebContants.FILE_DIR.value() + filename));
+	public void upload(@RequestParam(name="attach") MultipartFile attach) throws IOException {
+		if (!attach.isEmpty()) {
+			String filename = attach.getOriginalFilename();
+			File dir = new File(WebContants.FILE_DIR.value());
+			if (!dir.exists()) dir.mkdirs();
+			Path path = Paths.get(WebContants.FILE_DIR.value());
+			try (InputStream inputStream = attach.getInputStream()) {
+				Files.copy(inputStream, path.resolve(attach.getOriginalFilename()),
+						StandardCopyOption.REPLACE_EXISTING);
 			}
+			
 		}
 	}
 
@@ -57,8 +65,8 @@ public class FileController {
 
 	}
 	
-	@DeleteMapping(value="/{filename:.+}")
-	public void del(@PathVariable String filename) {
+	@DeleteMapping(value="{filename:.+}")
+	public void del(@PathVariable(name="filename") String filename) {
 		File file = new File(WebContants.FILE_DIR.value() + filename);
 		file.delete();
 	}

@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("comments")
 public class CommentController {
-	
 	@Autowired
 	private CommentService service;
 
@@ -32,21 +32,20 @@ public class CommentController {
 		return service.getComments();
 	}
 
-	@DeleteMapping("/{no}")
-	public void removeComment(@PathVariable Integer no) {
+	@DeleteMapping("{no}")
+	public void removeComment(@PathVariable(name="no") Integer no) {
 		service.removeComment(no);
 	}
 
 	@PutMapping("/{no}")
-	public void modifyComment(String content, @PathVariable Integer no) {
+	public void modifyComment(@RequestParam(name="content") String content, @PathVariable(name="no") Integer no) {
 		Comment comment = this.getComment(no);
 		comment.setContent(content);
 		service.modifyComment(comment);
 	}
 
 	@RequestMapping(value="/{no}", method=RequestMethod.GET)
-	public Comment getComment(@PathVariable Integer no) {
+	public Comment getComment(@PathVariable(name="no") Integer no) {
 		return service.getComment(no);
 	}
-
 }
