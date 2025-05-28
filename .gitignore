@@ -86,4 +86,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+### Download Path ###
+download/
+
 # End of https://www.gitignore.io/api/maven,eclipse,java-web
