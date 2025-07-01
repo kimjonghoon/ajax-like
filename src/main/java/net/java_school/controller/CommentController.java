@@ -37,14 +37,14 @@ public class CommentController {
 		service.removeComment(no);
 	}
 
-	@PutMapping("/{no}")
+	@PutMapping("{no}")
 	public void modifyComment(@RequestParam(name="content") String content, @PathVariable(name="no") Integer no) {
 		Comment comment = this.getComment(no);
 		comment.setContent(content);
 		service.modifyComment(comment);
 	}
 
-	@RequestMapping(value="/{no}", method=RequestMethod.GET)
+	@GetMapping("{no}")
 	public Comment getComment(@PathVariable(name="no") Integer no) {
 		return service.getComment(no);
 	}

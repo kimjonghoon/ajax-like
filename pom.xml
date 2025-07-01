@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 <modelVersion>4.0.0</modelVersion>
 <groupId>net.java_school</groupId>
-<artifactId>js-ajax-fileupload</artifactId>
+<artifactId>ajax-like</artifactId>
 <packaging>war</packaging>
 <version>0.0.1-SNAPSHOT</version>
-<name>js-ajax-fileupload</name>
+<name>ajax-like</name>
 <url>http://maven.apache.org</url>
 
 <properties>
@@ -74,16 +74,6 @@
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.1.0</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>src/main/webapp/WEB-INF/classes</directory>
-						</fileset>
-						<fileset>
-							<directory>src/main/webapp/WEB-INF/lib</directory>
-						</fileset>
-					</filesets>
-				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
